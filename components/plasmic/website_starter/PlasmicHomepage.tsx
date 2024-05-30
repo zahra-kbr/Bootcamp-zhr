@@ -67,6 +67,7 @@ import "@plasmicapp/react-web/lib/plasmic.css";
 import projectcss from "./plasmic.module.css"; // plasmic-import: iwQuL9Pc6FfJXBDaZxjmvn/projectcss
 import sty from "./PlasmicHomepage.module.css"; // plasmic-import: VERxYwHjPJ6k/css
 
+import Icon3Icon from "./icons/PlasmicIcon__Icon3"; // plasmic-import: O01PyrvPF_K2/icon
 import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: VogkY-gp40tE/icon
 import Icon2Icon from "./icons/PlasmicIcon__Icon2"; // plasmic-import: EwqmOuGsAsBD/icon
 
@@ -202,7 +203,7 @@ function PlasmicHomepage__RenderFunc(props: {
               >
                 {"Welcome to your first page."}
               </h1>
-              <svg
+              <Icon3Icon
                 className={classNames(projectcss.all, sty.svg___2Zzls)}
                 role={"img"}
               />

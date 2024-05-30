@@ -80,6 +80,11 @@
           "id": "EwqmOuGsAsBD",
           "name": "Icon2Icon",
           "moduleFilePath": "plasmic/website_starter/icons/PlasmicIcon__Icon2.tsx"
+        },
+        {
+          "id": "O01PyrvPF_K2",
+          "name": "Icon3Icon",
+          "moduleFilePath": "plasmic/website_starter/icons/PlasmicIcon__Icon3.tsx"
         }
       ],
       "images": [],
