@@ -78,7 +78,10 @@ export const PlasmicHomepage__ArgProps = new Array<ArgPropType>();
 export type PlasmicHomepage__OverridesType = {
   root?: Flex__<"div">;
   section?: Flex__<"section">;
+  freeBox?: Flex__<"div">;
   h1?: Flex__<"h1">;
+  link?: Flex__<"a"> & Partial<LinkProps>;
+  svg?: Flex__<"svg">;
   text?: Flex__<"div">;
 };
 
@@ -158,18 +161,39 @@ function PlasmicHomepage__RenderFunc(props: {
             data-plasmic-override={overrides.section}
             className={classNames(projectcss.all, sty.section)}
           >
-            <h1
-              data-plasmic-name={"h1"}
-              data-plasmic-override={overrides.h1}
-              className={classNames(
-                projectcss.all,
-                projectcss.h1,
-                projectcss.__wab_text,
-                sty.h1
-              )}
+            <div
+              data-plasmic-name={"freeBox"}
+              data-plasmic-override={overrides.freeBox}
+              className={classNames(projectcss.all, sty.freeBox)}
             >
-              {"Welcome to your first page."}
-            </h1>
+              <h1
+                data-plasmic-name={"h1"}
+                data-plasmic-override={overrides.h1}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.h1,
+                  projectcss.__wab_text,
+                  sty.h1
+                )}
+              >
+                {"Welcome to your first page."}
+              </h1>
+              <PlasmicLink__
+                data-plasmic-name={"link"}
+                data-plasmic-override={overrides.link}
+                className={classNames(projectcss.all, projectcss.a, sty.link)}
+                component={Link}
+                href={`/home`}
+                platform={"nextjs"}
+              >
+                <svg
+                  data-plasmic-name={"svg"}
+                  data-plasmic-override={overrides.svg}
+                  className={classNames(projectcss.all, sty.svg)}
+                  role={"img"}
+                />
+              </PlasmicLink__>
+            </div>
             <div
               data-plasmic-name={"text"}
               data-plasmic-override={overrides.text}
@@ -206,9 +230,12 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "section", "h1", "text"],
-  section: ["section", "h1", "text"],
+  root: ["root", "section", "freeBox", "h1", "link", "svg", "text"],
+  section: ["section", "freeBox", "h1", "link", "svg", "text"],
+  freeBox: ["freeBox", "h1", "link", "svg"],
   h1: ["h1"],
+  link: ["link", "svg"],
+  svg: ["svg"],
   text: ["text"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
@@ -217,7 +244,10 @@ type DescendantsType<T extends NodeNameType> =
 type NodeDefaultElementType = {
   root: "div";
   section: "section";
+  freeBox: "div";
   h1: "h1";
+  link: "a";
+  svg: "svg";
   text: "div";
 };
 
@@ -282,7 +312,10 @@ export const PlasmicHomepage = Object.assign(
   {
     // Helper components rendering sub-elements
     section: makeNodeComponent("section"),
+    freeBox: makeNodeComponent("freeBox"),
     h1: makeNodeComponent("h1"),
+    link: makeNodeComponent("link"),
+    svg: makeNodeComponent("svg"),
     text: makeNodeComponent("text"),
 
     // Metadata about props expected for PlasmicHomepage
