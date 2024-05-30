@@ -59,10 +59,16 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
+import Dialog from "../../Dialog"; // plasmic-import: g-wFSe8vTvkB/component
+import Button from "../../Button"; // plasmic-import: pwHTtS2SR00X/component
+
 import "@plasmicapp/react-web/lib/plasmic.css";
 
 import projectcss from "./plasmic.module.css"; // plasmic-import: iwQuL9Pc6FfJXBDaZxjmvn/projectcss
 import sty from "./PlasmicHomepage.module.css"; // plasmic-import: VERxYwHjPJ6k/css
+
+import IconIcon from "./icons/PlasmicIcon__Icon"; // plasmic-import: VogkY-gp40tE/icon
+import Icon2Icon from "./icons/PlasmicIcon__Icon2"; // plasmic-import: EwqmOuGsAsBD/icon
 
 createPlasmicElementProxy;
 
@@ -79,6 +85,7 @@ export type PlasmicHomepage__OverridesType = {
   root?: Flex__<"div">;
   section?: Flex__<"section">;
   freeBox?: Flex__<"div">;
+  dialog?: Flex__<typeof Dialog>;
   h1?: Flex__<"h1">;
   link?: Flex__<"a"> & Partial<LinkProps>;
   svg?: Flex__<"svg">;
@@ -117,6 +124,24 @@ function PlasmicHomepage__RenderFunc(props: {
   const $refs = refsRef.current;
 
   const currentUser = useCurrentUser?.() || {};
+
+  const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
+    () => [
+      {
+        path: "dialog.open",
+        type: "private",
+        variableType: "boolean",
+        initFunc: ({ $props, $state, $queries, $ctx }) => true
+      }
+    ],
+    [$props, $ctx, $refs]
+  );
+  const $state = useDollarState(stateSpecs, {
+    $props,
+    $ctx,
+    $queries: {},
+    $refs
+  });
 
   return (
     <React.Fragment>
@@ -166,6 +191,17 @@ function PlasmicHomepage__RenderFunc(props: {
               data-plasmic-override={overrides.freeBox}
               className={classNames(projectcss.all, sty.freeBox)}
             >
+              <Dialog
+                data-plasmic-name={"dialog"}
+                data-plasmic-override={overrides.dialog}
+                className={classNames("__wab_instance", sty.dialog)}
+                onOpenChange={generateStateOnChangeProp($state, [
+                  "dialog",
+                  "open"
+                ])}
+                open={generateStateValueProp($state, ["dialog", "open"])}
+              />
+
               <h1
                 data-plasmic-name={"h1"}
                 data-plasmic-override={overrides.h1}
@@ -230,9 +266,10 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "section", "freeBox", "h1", "link", "svg", "text"],
-  section: ["section", "freeBox", "h1", "link", "svg", "text"],
-  freeBox: ["freeBox", "h1", "link", "svg"],
+  root: ["root", "section", "freeBox", "dialog", "h1", "link", "svg", "text"],
+  section: ["section", "freeBox", "dialog", "h1", "link", "svg", "text"],
+  freeBox: ["freeBox", "dialog", "h1", "link", "svg"],
+  dialog: ["dialog"],
   h1: ["h1"],
   link: ["link", "svg"],
   svg: ["svg"],
@@ -245,6 +282,7 @@ type NodeDefaultElementType = {
   root: "div";
   section: "section";
   freeBox: "div";
+  dialog: typeof Dialog;
   h1: "h1";
   link: "a";
   svg: "svg";
@@ -313,6 +351,7 @@ export const PlasmicHomepage = Object.assign(
     // Helper components rendering sub-elements
     section: makeNodeComponent("section"),
     freeBox: makeNodeComponent("freeBox"),
+    dialog: makeNodeComponent("dialog"),
     h1: makeNodeComponent("h1"),
     link: makeNodeComponent("link"),
     svg: makeNodeComponent("svg"),
