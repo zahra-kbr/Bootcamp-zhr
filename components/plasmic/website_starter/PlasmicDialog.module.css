@@ -9,6 +9,20 @@
   position: relative;
   -webkit-backdrop-filter: blur(10px);
 }
+.pcls_5uc_nJXl2mt9 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  position: relative;
+  color: #040404;
+  background: #02000121;
+  outline: none;
+}
 .text__dYyNj {
   position: relative;
   width: 100%;
@@ -29,15 +43,19 @@
   height: 1em;
 }
 .dialogContent:global(.__wab_instance) {
-  box-shadow: 0px 4px 16px 0px #00000033;
-  background: rgb(255, 255, 255);
-  width: auto;
+  box-shadow: 0px 4px 16px 0px #3b121200;
+  background: #ffffff;
   max-width: 100%;
   object-fit: cover;
   position: relative;
   left: auto;
   top: auto;
   min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
   border-radius: 8px;
   padding: 24px;
   border: 1px solid #e2e8f0;
