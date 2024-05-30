@@ -85,11 +85,10 @@ export type PlasmicHomepage__OverridesType = {
   root?: Flex__<"div">;
   section?: Flex__<"section">;
   freeBox?: Flex__<"div">;
-  dialog?: Flex__<typeof Dialog>;
   h1?: Flex__<"h1">;
-  link?: Flex__<"a"> & Partial<LinkProps>;
   svg?: Flex__<"svg">;
   text?: Flex__<"div">;
+  dialog?: Flex__<typeof Dialog>;
 };
 
 export interface DefaultHomepageProps {}
@@ -131,7 +130,7 @@ function PlasmicHomepage__RenderFunc(props: {
         path: "dialog.open",
         type: "private",
         variableType: "boolean",
-        initFunc: ({ $props, $state, $queries, $ctx }) => true
+        initFunc: ({ $props, $state, $queries, $ctx }) => false
       }
     ],
     [$props, $ctx, $refs]
@@ -191,17 +190,6 @@ function PlasmicHomepage__RenderFunc(props: {
               data-plasmic-override={overrides.freeBox}
               className={classNames(projectcss.all, sty.freeBox)}
             >
-              <Dialog
-                data-plasmic-name={"dialog"}
-                data-plasmic-override={overrides.dialog}
-                className={classNames("__wab_instance", sty.dialog)}
-                onOpenChange={generateStateOnChangeProp($state, [
-                  "dialog",
-                  "open"
-                ])}
-                open={generateStateValueProp($state, ["dialog", "open"])}
-              />
-
               <h1
                 data-plasmic-name={"h1"}
                 data-plasmic-override={overrides.h1}
@@ -214,21 +202,12 @@ function PlasmicHomepage__RenderFunc(props: {
               >
                 {"Welcome to your first page."}
               </h1>
-              <PlasmicLink__
-                data-plasmic-name={"link"}
-                data-plasmic-override={overrides.link}
-                className={classNames(projectcss.all, projectcss.a, sty.link)}
-                component={Link}
-                href={`/home`}
-                platform={"nextjs"}
-              >
-                <svg
-                  data-plasmic-name={"svg"}
-                  data-plasmic-override={overrides.svg}
-                  className={classNames(projectcss.all, sty.svg)}
-                  role={"img"}
-                />
-              </PlasmicLink__>
+              <svg
+                data-plasmic-name={"svg"}
+                data-plasmic-override={overrides.svg}
+                className={classNames(projectcss.all, sty.svg)}
+                role={"img"}
+              />
             </div>
             <div
               data-plasmic-name={"text"}
@@ -258,6 +237,16 @@ function PlasmicHomepage__RenderFunc(props: {
                 </React.Fragment>
               </React.Fragment>
             </div>
+            <Dialog
+              data-plasmic-name={"dialog"}
+              data-plasmic-override={overrides.dialog}
+              className={classNames("__wab_instance", sty.dialog)}
+              onOpenChange={generateStateOnChangeProp($state, [
+                "dialog",
+                "open"
+              ])}
+              open={generateStateValueProp($state, ["dialog", "open"])}
+            />
           </section>
         </div>
       </div>
@@ -266,14 +255,13 @@ function PlasmicHomepage__RenderFunc(props: {
 }
 
 const PlasmicDescendants = {
-  root: ["root", "section", "freeBox", "dialog", "h1", "link", "svg", "text"],
-  section: ["section", "freeBox", "dialog", "h1", "link", "svg", "text"],
-  freeBox: ["freeBox", "dialog", "h1", "link", "svg"],
-  dialog: ["dialog"],
+  root: ["root", "section", "freeBox", "h1", "svg", "text", "dialog"],
+  section: ["section", "freeBox", "h1", "svg", "text", "dialog"],
+  freeBox: ["freeBox", "h1", "svg"],
   h1: ["h1"],
-  link: ["link", "svg"],
   svg: ["svg"],
-  text: ["text"]
+  text: ["text"],
+  dialog: ["dialog"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -282,11 +270,10 @@ type NodeDefaultElementType = {
   root: "div";
   section: "section";
   freeBox: "div";
-  dialog: typeof Dialog;
   h1: "h1";
-  link: "a";
   svg: "svg";
   text: "div";
+  dialog: typeof Dialog;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -351,11 +338,10 @@ export const PlasmicHomepage = Object.assign(
     // Helper components rendering sub-elements
     section: makeNodeComponent("section"),
     freeBox: makeNodeComponent("freeBox"),
-    dialog: makeNodeComponent("dialog"),
     h1: makeNodeComponent("h1"),
-    link: makeNodeComponent("link"),
     svg: makeNodeComponent("svg"),
     text: makeNodeComponent("text"),
+    dialog: makeNodeComponent("dialog"),
 
     // Metadata about props expected for PlasmicHomepage
     internalVariantProps: PlasmicHomepage__VariantProps,
